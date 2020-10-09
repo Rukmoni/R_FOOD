@@ -135,6 +135,11 @@ android {
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
+        def secureProps = new Properties()
+    if (file("../secure.properties").exists()) {
+            file("../secure.properties")?.withInputStream { secureProps.load(it) }
+    }
+    resValue "string", "maps_api_key", (secureProps.getProperty("MAPS_API_KEY") ?: "")
     }
     splits {
         abi {
